@@ -1,0 +1,24 @@
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    padding: 10px;
+}
+
+.log-in {
+    margin-left: 80%;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+    font-family: Inter, serif;
+}

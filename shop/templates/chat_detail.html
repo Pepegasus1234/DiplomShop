@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Чат{% endblock %}
+
+{% block content %}
+    {% load static %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+<div class="chat-container">
+    <h2>Чат с {{ chat.other_participant_username }}</h2>
+
+    <!-- Сообщения -->
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {% if message.sender == user %}sent{% else %}received{% endif %}">
+                <p>{{ message.text }}</p>
+                <small>{{ message.timestamp }}</small>
+            </div>
+        {% empty %}
+            <p>Нет сообщений.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Форма отправки сообщения -->
+    <form method="post" action="{% url 'shop:send_message' chat.id %}">
+        {% csrf_token %}
+        <textarea name="text" placeholder="Введите сообщение"></textarea>
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+{% endblock %}

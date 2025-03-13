@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+{% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+    <div class="container" style="margin-top: 60px;">
+        <!-- Левая панель с категориями -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>DIPLOM SHOP</h1>
+                <img src="{% static 'images/Эмблема.png' %}" alt="Logo" class="logo-img">
+            </div>
+            <hr> 
+
+            <h3>Категории</h3>
+            <a href="{% url 'shop:catalog' %}?category=bottoms" class="category-link {% if category == 'bottoms' %}active{% endif %}">Низ</a>
+            <a href="{% url 'shop:catalog' %}?category=underwear" class="category-link {% if category == 'underwear' %}active{% endif %}">Нижнее белье</a>
+            <a href="{% url 'shop:catalog' %}?category=tops" class="category-link {% if category == 'tops' %}active{% endif %}">Верх</a>
+            <a href="{% url 'shop:catalog' %}?category=headwear" class="category-link {% if category == 'headwear' %}active{% endif %}">Голова</a>
+        </div>
+    
+        <!-- Правая область с карточками товаров -->
+        <div class="main-content">
+            <!-- Форма фильтрации и сортировки -->
+            <form method="get" class="filters">
+                <!-- Фильтрация по размеру -->
+                <label for="size">Размер:</label>
+                <select id="size" name="size">
+                    <option value="">Любой</option>
+                    <option value="XS" {% if size == "XS" %}selected{% endif %}>XS</option>
+                    <option value="S" {% if size == "S" %}selected{% endif %}>S</option>
+                    <option value="M" {% if size == "M" %}selected{% endif %}>M</option>
+                    <option value="L" {% if size == "L" %}selected{% endif %}>L</option>
+                    <option value="XL" {% if size == "XL" %}selected{% endif %}>XL</option>
+                    <option value="XXL" {% if size == "XXL" %}selected{% endif %}>XXL</option>
+                </select>
+    
+                <!-- Сортировка по цене -->
+                <label for="sort_by">Сортировать по:</label>
+                <select id="sort_by" name="sort_by">
+                    <option value="">Без сортировки</option>
+                    <option value="price_asc" {% if sort_by == "price_asc" %}selected{% endif %}>Цена: по возрастанию</option>
+                    <option value="price_desc" {% if sort_by == "price_desc" %}selected{% endif %}>Цена: по убыванию</option>
+                </select>
+    
+                <button type="submit">Применить</button>
+            </form>
+    
+            <!-- Контейнер для карточек товаров -->
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'shop:product_detail' product.id %}" class="product-link">
+                        <img src="{{ product.image1.url }}" alt="{{ product.name }}">
+                        <p class="price">{{ product.price }} Руб.</p>
+                        <p>{{ product.name }}</p>
+                        <div class="rating">
+                            {% with rating=product.average_rating %}
+                                {% for i in "x"|rjust:5 %}
+                                    <span class="star {% if forloop.counter <= rating|add:0 %}filled{% endif %}">★</span>
+                                {% endfor %}
+                                <span class="rating-value">{{ rating }}</span>
+                            {% endwith %}
+                        </div>
+                    </a>
+                    <button onclick="location.href='{% url 'shop:add_to_cart' product.id %}'">Добавить в корзину</button>
+                </div>
+                {% empty %}
+                    <p>Товары не найдены.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

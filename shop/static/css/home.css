@@ -1,0 +1,177 @@
+.logo-container {
+    margin-left: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo_name {
+    margin-right: 10px;
+    font-size: 32px;
+    font-family: "Lexend Peta", serif;
+    letter-spacing: 10px;
+}
+
+.logo_img {
+    height: 80px;
+    width: 80px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 5%;
+    height: 30px;
+}
+
+.search-box {
+    padding: 5px 10px;
+    border: 3px solid #E9C9AA;
+    border-radius: 15px;
+    font-size: 14px;
+    height: 20px;
+}
+
+.catalogue-container {
+    margin-left: 2%;
+    margin-top: 3%;
+    font-family: "Ledger", serif;
+    font-size: 26px;
+}
+
+.catalogue-container a {
+    padding-right: 50px;
+    letter-spacing: 2px;
+}
+
+.catalogue-container-4 {
+    color: orange;
+}
+
+.catalogue-container a:hover {
+    text-decoration: underline;
+    color: #E9C9AA;
+    cursor: pointer;
+}
+
+.body {
+    margin-left: 2%;
+    margin-top: 1%;
+    display: flex;
+    width: 100%;
+}
+
+.slider-container {
+    position: relative;
+    width: 70%;
+    height: 721px;
+}
+
+.slide {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slide:first-child {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill
+}
+
+.slider-navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 1;
+}
+
+.prev, .next {
+    font-size: 30px;
+    position: absolute;
+    padding: 5px 10px;
+    border: none;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.prev:hover, .next:hover {
+    color: orange;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.slide-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    font-family: "Lexend Peta", serif;
+    color: black;
+    padding: 5px 10px;
+}
+
+.collection-body {
+    margin-left: 20px;
+    margin-right: 3%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.collection-body a {
+    margin-bottom: 20px;
+    font-family: "Lexend Peta";
+    text-decoration: none;
+    color: black;
+    letter-spacing: 2px;
+    font-size: 15px;
+}
+
+.collection-body img {
+    width: 100%;
+    height: 400px;
+}
+
+.collection-body a span {
+    font-size: 24px;
+    font-weight: bold;
+}
+.caption {
+    top: 730px;
+    position: relative;
+    margin-left: 2%;
+    font-family: "Lexend Peta";
+    font-size: 55px;
+}
+.subcaption {
+    color: rgb(128, 128, 128);
+    font-family: "Lexend Peta";
+    top: 730px;
+    position: relative;
+    margin-left: 2%;
+    font-size: 30px;
+}

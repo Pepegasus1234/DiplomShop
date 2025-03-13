@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block title %}Администрирование магазина{% endblock %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/admin_shop.css' %}">
+
+<div class="profile-container">
+        <div class="sidebar">
+            <h2>Меню</h2>
+            <ul>
+                <li><a href="{% url 'shop:admin_shop' tab='my_shop' %}">Мой магазин</a></li>
+                <li><a href="{% url 'shop:admin_shop' tab='completed_orders' %}">Заказы</a></li>
+                <li><a href="{% url 'shop:admin_shop' tab='stock' %}">Склад</a></li>
+                <li><a href="{% url 'shop:admin_shop' tab='analytics' %}">Аналитика</a></li>
+                <li><a href="{% url 'shop:admin_shop' tab='add_product' %}">Добавить товар</a></li>
+                <li><a href="{% url 'shop:admin_shop' tab='add_manager' %}">Добавить менеджера</a></li>
+                <li><a href="{% url 'shop:logout' %}">Выйти</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            {% if tab == 'my_shop' %}
+                <h2>Информация о магазине</h2>
+                <p>Дата регистрации: {{ shop.created_at|date }}</p>
+                <p>ИНН: {{ shop.inn }}</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ shop_info_form.name.label_tag }}
+                        {{ shop_info_form.name }}
+                        {% if shop_info_form.name.errors %}
+                            <div class="error">{{ shop_info_form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ shop_info_form.email.label_tag }}
+                        {{ shop_info_form.email }}
+                        {% if shop_info_form.email.errors %}
+                            <div class="error">{{ shop_info_form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" name="edit_shop_info">Сохранить изменения</button>
+                </form>
+            {% elif tab == 'completed_orders' %}
+                <h2>Выполненные заказы</h2>
+                <!-- Здесь отображается информация о выполненных заказах -->
+            {% elif tab == 'stock' %}
+                <h2>Склад</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Количество</th>
+                            <th>Цена</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in stock_products %}
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>
+                                    <form method="post" action="{% url 'shop:delete_product' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit">Удалить</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">На складе нет товаров.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% elif tab == 'analytics' %}
+                <h2>Аналитика</h2>
+                <!-- Здесь отображается аналитическая информация -->
+                <div id="income-chart"></div>
+                <div id="top-products-chart"></div>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    // График доходов
+                    const incomeData = {{ income_data|safe }};
+                    const ctxIncome = document.getElementById('income-chart').getContext('2d');
+                    new Chart(ctxIncome, {
+                        type: 'line',
+                        data: {
+                            labels: incomeData.map(item => item.created_at__date),
+                            datasets: [{
+                                label: 'Доход',
+                                data: incomeData.map(item => item.total_income),
+                                fill: true,
+                                borderColor: 'rgba(75, 192, 192, 0.2)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.1)'
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                    // Круговая диаграмма топ товаров
+                    const topProducts = {{ top_products|safe }};
+                    const ctxTopProducts = document.getElementById('top-products-chart').getContext('2d');
+                    new Chart(ctxTopProducts, {
+                        type: 'doughnut',
+                        data: {
+                            labels: topProducts.map(item => item.name),
+                            datasets: [{
+                                data: topProducts.map(item => item.total_quantity),
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right'
+                                }
+                            }
+                        }
+                    });
+                </script>
+            {% elif tab == 'add_product' %}
+                <h2>Добавить товар</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ product_form.as_p }}
+                    <button type="submit" name="add_product">Добавить товар</button>
+                </form>
+            {% elif tab == 'add_manager' %}
+                <h2>Добавить менеджера</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ add_manager_form.username.label_tag }}
+                        {{ add_manager_form.username }}
+                        {% if add_manager_form.username.errors %}
+                            <div class="error">{{ add_manager_form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" name="add_manager">Добавить менеджера</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

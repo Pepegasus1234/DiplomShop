@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+<script src="{% static 'js/review.js' %}"></script>
+
+<div class="product-detail-container" style="margin-top: 50px;">
+    <!-- Левая часть: изображения -->
+    <div class="product-images">
+        <img src="{{ product.image1.url }}" alt="{{ product.name }}" class="main-image">
+        <div class="thumbnails">
+            <img src="{{ product.image1.url }}" alt="{{ product.name }}" class="thumbnail">
+            {% if product.image2 %}
+                <img src="{{ product.image2.url }}" alt="{{ product.name }}" class="thumbnail">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Вертикальная линия -->
+    <div class="vertical-divider"></div>
+
+    <!-- Правая часть: информация о товаре -->
+    <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ product.price }} Руб.</p>
+        <div class="rating">
+            {% with rating=product.average_rating %}
+                {% for i in "x"|rjust:5 %}
+                    <span class="star {% if forloop.counter <= rating|add:0 %}filled{% endif %}">★</span>
+                {% endfor %}
+                <span class="rating-value">{{ rating }}</span>
+            {% endwith %}
+        </div>
+        <p>Категория: {{ product.get_category_display }}</p>
+        <p>Цвет: {{ product.color }}</p>
+
+        <!-- Выбор размера -->
+        <label for="size">Размер:</label>
+        <select id="size" name="size">
+            {% for size in product.SIZE_CHOICES %}
+                <option value="{{ size.0 }}">{{ size.1 }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Кнопка добавить в корзину -->
+        <button onclick="location.href='{% url 'shop:add_to_cart' product.id %}'">Добавить в корзину</button>
+
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab-button {% if tab == 'about_product' %}active{% endif %}" onclick="location.href='?tab=about_product'">О товаре</button>
+            <button class="tab-button {% if tab == 'about_shop' %}active{% endif %}" onclick="location.href='?tab=about_shop'">О магазине</button>
+            <button class="tab-button {% if tab == 'reviews' %}active{% endif %}" onclick="location.href='?tab=reviews'">Отзывы</button>
+        </div>
+
+        <!-- Содержимое вкладок -->
+        {% if tab == 'about_product' %}
+            <div class="tab-content">
+                <h2>Информация о товаре</h2>
+                <p>{{ product.description }}</p>
+            </div>
+        {% elif tab == 'about_shop' %}
+            <div class="tab-content">
+                <h2>Информация о магазине</h2>
+                <p>Название: {{ product.shop.name }}</p>
+                <p>Email: {{ product.shop.email }}</p>
+                <p>Дата создания: {{ product.shop.created_at }}</p>
+            </div>
+        {% elif tab == 'reviews' %}
+            <div class="tab-content">
+                <h2>Отзывы</h2>
+                {% for review in reviews %}
+                    <div class="review">
+                        <p><strong>{{ review.user.username }}</strong>: {{ review.comment }}</p>
+                        <div class="review-rating">
+                            {% for i in "x"|rjust:5 %}
+                                <span class="star {% if forloop.counter <= review.rating %}filled{% endif %}">★</span>
+                            {% endfor %}
+                            <span class="rating-value">{{ review.rating }}/5</span>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Отзывов пока нет.</p>
+                {% endfor %}
+                <!-- Форма добавления отзыва -->
+                <form method="post" id="review-form">
+                    {% csrf_token %}
+                    <div class="rating-selector">
+                        <p>Оцените товар:</p>
+                        <div class="stars">
+                            {% for i in "x"|rjust:5 %}
+                                <span class="star" data-value="{{ forloop.counter }}">★</span>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" id="rating-input" name="rating" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Комментарий:</label>
+                        <textarea id="comment" name="comment" rows="4"></textarea>
+                    </div>
+                    <button type="submit">Оставить отзыв</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

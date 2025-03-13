@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Подтверждение оплаты{% endblock %}
+{% load static %}
+{% block content %}
+<div class="payment-confirmation">
+    {% if success %}
+        <h2>Оплата прошла успешно!</h2>
+        <p>Спасибо за ваш заказ.</p>
+        <div class="payment-details">
+            <p><strong>Сумма:</strong> {{ payment_amount }} ₽</p>
+            <p><strong>Дата платежа:</strong> {{ payment_date }}</p>
+            <p><strong>Номер заказа:</strong> {{ order_id }}</p>
+        </div>
+    {% else %}
+        <h2>Ошибка оплаты</h2>
+        <p>Что-то пошло не так. Пожалуйста, попробуйте еще раз.</p>
+        {% if message %}
+            <p><strong>Причина:</strong> {{ message }}</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

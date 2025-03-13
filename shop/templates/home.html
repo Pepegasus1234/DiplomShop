@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+    <div class="logo-container" style="margin-top: 80px;">
+        <div class="logo">
+            <h1 class="logo_name">DIPLOM SHOP</h1>
+            <img class="logo_img" src="{% static 'images/Эмблема.png' %}" alt="logo_img">
+    </div>
+
+        <div class='search-container'>
+            <input class="search-box" type="text" placeholder="Поиск">
+        </div>
+    </div>
+
+    <div class='catalogue-container'>
+        <a class="catalogue-container-1" onclick="location.href='{% url 'shop:catalog' %}?category=tops'">Новинки</a>
+        <a class="catalogue-container-2" onclick="location.href='{% url 'shop:catalog' %}?category=tops'">Худи</a>
+        <a class="catalogue-container-3" onclick="location.href='{% url 'shop:catalog' %}?category=tops'">Футболки</a>
+        <a class="catalogue-container-4" onclick="location.href='{% url 'shop:catalog' %}?category=tops'">Sale%</a>
+    </div>
+
+    <div class="body">
+        <div class="slider-container">
+            <div class="slide">
+                <img src="{% static 'images/image1.png' %}" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image2.png' %}" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image3.png' %}" alt="Image 3">
+            </div>
+
+            <div class="slider-navigation">
+                <a href="#" class="prev">←</a>
+                <span class="slide-counter">1/3</span>
+                <a href="#" class="next">→</a>
+            </div>
+
+            <div class="caption">
+                Новые коллекции уже в магазине
+            </div>
+            <div class="subcaption">
+                по выгодным ценам
+            </div>
+
+        </div>
+        <div class="collection-body">
+            <a href='{% url 'shop:catalog' %}?category=tops'><img src="{% static 'images/Women.png' %}" alt="Women"><span>Женская коллекция</span></a>
+            <a href='{% url 'shop:catalog' %}?category=tops'><img src="{% static 'images/Men.png' %}" alt="Men"><span>Мужская коллекция</span></a>
+        </div>
+
+
+    </div>
+{% endblock %}

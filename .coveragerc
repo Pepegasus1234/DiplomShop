@@ -1,0 +1,20 @@
+[run]
+# Указываем источник для анализа покрытия
+source = shop
+
+# Исключаем ненужные файлы из анализа
+omit =
+    */migrations/*
+    */tests/*
+    */admin.py
+    */apps.py
+    */__init__.py
+
+[report]
+# Исключаем строки, которые не нужно учитывать
+exclude_lines =
+    pragma: no cover
+    def __str__
+    def __repr__
+    if self.debug:
+    raise NotImplementedError

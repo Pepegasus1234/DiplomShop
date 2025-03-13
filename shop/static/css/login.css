@@ -1,0 +1,120 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: white;
+}
+
+.login-container {
+    position: relative;
+    width: 70%;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: #E9C9AA;
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 55px;
+    margin-right: 10px;
+}
+
+.logo-img {
+    height: 80px;
+    width: 80px;
+}
+
+hr {
+    color: white;
+    border: solid 2px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.login-container p {
+    margin-left: 14%;
+    margin-right: 10%;
+    font-family: "Ledger";
+    font-size: 24px;
+}
+
+.registration-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.registration-button {
+    background-color: #E9C9AA;
+    color: black;
+    border: solid black 2px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.registration-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-group .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    left: 50%;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: darkgray;
+}

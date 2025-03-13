@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Авторизация{% endblock %}
+{% block content %}
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <div class="login-container">
+        <div class="logo-container">
+            <h1 class="logo">DIPLOM SHOP</h1>
+            <img src="{% static 'images/Эмблема.png' %}" alt="Logo" class="logo-img">
+        </div>
+        <hr>
+        <p>Еще не зарегистрированы?</p>
+
+        <div class="registration-buttons">
+            <a href="{% url 'shop:register_buyer' %}" class="registration-button">Регистрация как покупатель</a>
+            <a href="{% url 'shop:register_seller' %}" class="registration-button">Регистрация как продавец</a>
+        </div>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <h2>Войти</h2>
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.inn.label_tag }}
+                {{ form.inn }}
+                {% if form.inn.errors %}
+                    <div class="error">{{ form.inn.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="button-container">
+                <button type="submit">Войти</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

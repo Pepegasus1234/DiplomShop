@@ -1,0 +1,68 @@
+/* Главный контейнер */
+.cart-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Lexend Peta", serif;
+}
+
+/* Таблица корзины */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th,
+.cart-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+}
+
+.cart-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.cart-table tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Ссылка "Удалить" */
+.remove-link {
+    color: #ff4d4d;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.remove-link:hover {
+    color: #cc0000;
+}
+
+/* Общая стоимость */
+.cart-total {
+    text-align: right;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.cart-total strong {
+    color: #000;
+}
+
+/* Сообщение о пустой корзине */
+.empty-cart {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-top: 50px;
+}

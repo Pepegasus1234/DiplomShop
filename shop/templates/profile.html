@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Личный кабинет{% endblock %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <div class="profile-container">
+        <div class="sidebar">
+            <h2>Меню</h2>
+            <hr>
+            <ul>
+                <li><a href="{% url 'shop:profile' %}?tab=profile"><img src="{% static 'images/User.png' %}">Мой профиль</a></li>
+                <li><a href="{% url 'shop:profile' %}?tab=orders"><img src="{% static 'images/Van.png' %}">Мои заказы</a></li>
+                <li><a href="{% url 'shop:profile' %}?tab=chats"><img src="{% static 'images/Chats.png' %}">Мои чаты</a></li>
+                <li><a href="{% url 'shop:profile' %}?tab=cart"><img src="{% static 'images/Bag.png' %}">Корзина</a></li>
+                <li><a href="{% url 'shop:profile' %}?tab=password"><img src="{% static 'images/Lock.png' %}">Сменить пароль</a></li>
+                {% if user.role == 'seller' or user.role == 'manager' %}
+                    <li><a href="{% url 'shop:admin_shop_default' %}"><img src="{% static 'images/dollar_sign.png' %}">Администрирование магазина</a></li>
+                {% endif %}
+                <li><a href="{% url 'shop:logout' %}"><img src="{% static 'images/Exit.png' %}">Выйти</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Здравствуйте! {{ user.first_name }} {{ user.last_name }}</h1>
+            {% if request.GET.tab == 'profile' %}
+                <h2>Личная информация</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <div class="error">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="error">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.gender.label_tag }}
+                        {{ form.gender }}
+                        {% if form.gender.errors %}
+                            <div class="error">{{ form.gender.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.phone.label_tag }}
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                            <div class="error">{{ form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit">Сохранить изменения</button>
+                </form>
+
+            {% elif request.GET.tab == 'orders' %}
+                <h2>Мои заказы</h2>
+                {% include 'orders.html' %}
+
+            {% elif request.GET.tab == 'chats' %}
+            <h2>Мои чаты</h2>
+            {% if chats %}
+                <ul>
+                    {% for chat in chats %}
+                        <li>
+                            <a href="{% url 'shop:chat_detail' chat.id %}">
+                                Чат с {{ chat.other_participant_username }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>У вас пока нет чатов.</p>
+            {% endif %}
+            <!-- Кнопка для создания нового чата -->
+            <a href="{% url 'shop:create_chat' %}" class="create-chat-button">Создать чат</a>
+
+            {% elif request.GET.tab == 'cart' %}
+                <h2>Корзина</h2>
+                {% include 'cart.html' %}
+            {% elif request.GET.tab == 'password' %}
+                <h2>Сменить пароль</h2>
+                {% include 'change_password.html' %}
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
