@@ -103,3 +103,7 @@ python -m manage.py runserver
 
 >Смена пароля:
 >![image](https://github.com/user-attachments/assets/eef2a5fe-aa40-48b7-b5d9-dc07dfa0dbaf)
+
+>Отзывы на товар:
+>
+>![image](https://github.com/user-attachments/assets/0c7bae55-847d-43e2-996c-64195948a5b3)
