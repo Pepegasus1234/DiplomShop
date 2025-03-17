@@ -59,6 +59,7 @@ python -m manage.py runserver
 На авторизацию, попадаем из хедер панели сверху справа по кнопке LOGIN:
 
 ![image](https://github.com/user-attachments/assets/655d8494-fc52-49db-bc21-aa31be7513b3)
+
 Нажатием на кнопку регистрации в кач-ве покупателя продавца попадаем на соответствующие регистрационные страницы:
 ![image](https://github.com/user-attachments/assets/8968c01b-8c13-48d9-a488-f156a53d410b) ![image](https://github.com/user-attachments/assets/c5f9dd23-cd60-4f1a-8872-1af354f01942)
 
@@ -66,6 +67,7 @@ python -m manage.py runserver
 
 ## 2.2 Функционал продавца:
 После авторизацции в качестве продавца происходит редирект на личный кабинет, слева есть панель навигации справа рабочая область
+
 ![image](https://github.com/user-attachments/assets/b687ac82-c8f3-4e36-a6e4-f9e864468594)
 > Мой профиль вкладка с информацией
 ![image](https://github.com/user-attachments/assets/a8f4d33e-9aeb-42e6-9d7a-0232c183b835)
@@ -80,16 +82,24 @@ python -m manage.py runserver
 > Добавить менеджера:
 ![image](https://github.com/user-attachments/assets/4f8560ab-f6da-4cd2-8a5a-4d08d908eb60)
 > Аналитика:
-**![image](https://github.com/user-attachments/assets/653756c2-4fc5-4e82-910e-4c3425e5d95e)
+> 
+> ![image](https://github.com/user-attachments/assets/653756c2-4fc5-4e82-910e-4c3425e5d95e)
+
 ## 2.2 Функционал покупателя:
-Просмотр каталога:
-![image](https://github.com/user-attachments/assets/6e125269-8bd5-429f-a851-2fd42e69eb21)
-Корзина:
-![image](https://github.com/user-attachments/assets/5416b56b-bcda-491a-b61f-b1aee1db8ce1)
-Оформления заказа (Интеграция с юкассой):
-![image](https://github.com/user-attachments/assets/2efed2a7-485d-4950-97c3-8a1939125d4e)
-Чаты с продавцами:
-![image](https://github.com/user-attachments/assets/cb200055-cdb9-4028-a525-41249e39498e)
-![image](https://github.com/user-attachments/assets/bd46c852-e6dc-4789-8c75-3d1211cf2b24)
-Смена пароля:
-![image](https://github.com/user-attachments/assets/eef2a5fe-aa40-48b7-b5d9-dc07dfa0dbaf)
+>Просмотр каталога:
+>![image](https://github.com/user-attachments/assets/6e125269-8bd5-429f-a851-2fd42e69eb21)
+
+>Корзина:
+>
+>![image](https://github.com/user-attachments/assets/5416b56b-bcda-491a-b61f-b1aee1db8ce1)
+
+>Оформления заказа (Интеграция с юкассой):
+>![image](https://github.com/user-attachments/assets/2efed2a7-485d-4950-97c3-8a1939125d4e)
+
+>Чаты с продавцами:
+>
+>![image](https://github.com/user-attachments/assets/cb200055-cdb9-4028-a525-41249e39498e)
+>![image](https://github.com/user-attachments/assets/bd46c852-e6dc-4789-8c75-3d1211cf2b24)
+
+>Смена пароля:
+>![image](https://github.com/user-attachments/assets/eef2a5fe-aa40-48b7-b5d9-dc07dfa0dbaf)
